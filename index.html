@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IOE SUPER KIDS – TEST 1</title>
+<style>
+:root{--bg:#fff7e6;--card:#fff;--tx:#2b2540;--pri:#6c4cf1;--ok:#22a05a;--no:#e0453a;--ln:#e6dcc8;--mu:#7a7390;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a2b;--card:#2a2640;--tx:#f3efff;--ln:#443f63;--mu:#aaa3c7}}
+:root[data-theme="dark"]{--bg:#1d1a2b;--card:#2a2640;--tx:#f3efff;--ln:#443f63;--mu:#aaa3c7}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:17px/1.4 "Segoe UI",system-ui,Arial,sans-serif;min-height:100vh}
+#app{max-width:720px;margin:0 auto;padding:14px}
+.scr{display:none}.scr.on{display:block}
+.card{background:var(--card);border:2px solid var(--ln);border-radius:20px;padding:18px;margin-bottom:12px}
+.home{text-align:center}.home .logo{font-size:64px}
+h1{margin:6px 0;font-size:30px;color:var(--pri)}h2{margin:8px 0;font-size:22px}
+.mu{color:var(--mu);margin:4px 0}
+button{font:inherit;cursor:pointer;border:2px solid var(--ln);background:var(--card);color:var(--tx);border-radius:14px;padding:12px 16px;min-height:48px}
+button.pri{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:700}
+button:disabled{opacity:.55;cursor:default}
+.big-btns{display:grid;gap:10px;margin-top:14px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600;flex-wrap:wrap}
+.pb{height:12px;background:var(--ln);border-radius:9px;margin:10px 0;overflow:hidden}.pb i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.big{font-size:84px;text-align:center}
+.txt{background:var(--bg);border-radius:12px;padding:10px;margin:6px 0}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.op{font-size:19px;min-height:58px}
+.op.ok,.m.matched{background:var(--ok);border-color:var(--ok);color:#fff}
+.op.ok::after{content:" ✔"}
+.op.no{background:var(--no);border-color:var(--no);color:#fff;animation:sk .35s}
+.op.gone{opacity:.3}
+@keyframes sk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.m.sel{border-color:var(--pri);background:#6c4cf133}
+.m.shake{animation:sk .35s}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.mt div{display:grid;gap:10px}
+input{font:inherit;width:100%;padding:12px;border-radius:12px;border:2px solid var(--ln);background:var(--card);color:var(--tx);margin:10px 0}
+.line,.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;border-radius:12px;border:2px dashed var(--ln);margin:8px 0}
+.pool{border-style:solid;border-color:transparent}
+.ft{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.ft button{flex:1}
+.fb{padding:12px;border-radius:14px;margin-top:10px}.fb:empty{display:none}
+.fb.good{background:#22a05a22;border:2px solid var(--ok)}.fb.bad{background:#e0453a1f;border:2px solid var(--no)}
+.sp{padding:4px 10px;min-height:36px}
+.row{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)}.row .e{font-size:28px;width:40px;text-align:center}.row .w{flex:1}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.stat div{background:var(--bg);border-radius:12px;padding:10px;text-align:center}.stat b{display:block;font-size:24px}
+.md{position:fixed;inset:0;background:#0007;display:flex;align-items:center;justify-content:center;padding:20px;z-index:9}.md[hidden]{display:none}
+.md .card{max-width:340px;text-align:center}
+</style></head><body><div id="app">
+
+<section id="home" class="scr on card home">
+<div class="logo">🦉🎒✏️</div><h1>IOE SUPER KIDS – TEST 1</h1>
+<h2>Let's practise English!</h2><p class="mu">100 Questions • 30 phút • Lớp 2</p>
+<div class="big-btns">
+<button class="pri" onclick="start()">▶ START GAME</button>
+<button onclick="go('how')">❓ HOW TO PLAY</button>
+<button onclick="words()">📖 REVIEW WORDS</button>
+<button id="snd" onclick="tsnd()">🔊 Sound: ON</button></div></section>
+
+<section id="how" class="scr card"><h2>How to play</h2>
+<p>• Có 100 câu, mỗi câu đúng được <b>10 điểm</b> (tối đa 1000). Câu sai được 0 điểm, không bị trừ.<br>
+• Chọn đáp án, gõ từ, nối cặp hoặc xếp từ thành câu.<br>
+• Bấm 💡 HINT để được gợi ý (không bị trừ điểm).<br>
+• Bấm 🔊 để nghe tiếng Anh (nếu thiết bị hỗ trợ).<br>
+• Có 30 phút. Hết giờ trò chơi sẽ tự tổng kết.</p>
+<button class="pri" onclick="go('home')">OK</button></section>
+
+<section id="words" class="scr card"><h2>📖 Review Words</h2>
+<input id="srch" placeholder="Tìm từ… (English / Tiếng Việt)" oninput="drawW()"><div id="wl"></div>
+<button onclick="go(S&&S.back||'home')">⬅ Back</button></section>
+
+<section id="quiz" class="scr">
+<div class="card"><div class="top"><span id="qn"></span><span>⭐ <b id="sc">0</b></span><span>⏱ <b id="tm">30:00</b></span><button class="sp" onclick="md.hidden=false">✖</button></div>
+<div class="pb"><i id="bar"></i></div>
+<div id="main"></div><div id="fb" class="fb"></div>
+<div class="ft"><button id="hint" onclick="hint()">💡 HINT</button><button id="sub" class="pri" onclick="sub()">SUBMIT</button><button id="nx" class="pri" onclick="nxt()" hidden>NEXT ▶</button></div></div></section>
+
+<section id="result" class="scr card" style="text-align:center"><h1>🏆 Kết quả</h1>
+<h2 id="rm"></h2><div class="stat"><div>Tổng điểm<b id="rs"></b></div><div>Chính xác<b id="ra"></b></div><div>Số câu đúng<b id="ro"></b></div><div>Số câu sai<b id="rw"></b></div></div>
+<p id="rt" class="mu"></p><div class="pb"><i id="rb"></i></div>
+<div class="big-btns"><button class="pri" onclick="start()">🔁 PLAY AGAIN</button><button onclick="wrong()">📝 REVIEW WRONG ANSWERS</button><button onclick="words('result')">📖 REVIEW WORDS</button><button onclick="go('home')">🏠 HOME</button></div></section>
+
+<section id="wrong" class="scr card"><h2>📝 Câu cần xem lại</h2><div id="wr"></div><button onclick="go('result')">⬅ Back</button></section>
+</div>
+<div id="md" class="md" hidden><div class="card"><h2>Thoát trò chơi?</h2><p>Tiến trình hiện tại sẽ bị mất.</p><div class="ft"><button onclick="md.hidden=true">Ở lại</button><button class="pri" onclick="md.hidden=true;stop();go('home')">Thoát</button></div></div></div>
+
+<script>
+const $=s=>document.querySelector(s),md=$('#md');
+const sh=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let snd=true,Q=[],S=null;
+const say=t=>{try{if(snd&&window.speechSynthesis){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.8;speechSynthesis.speak(u)}}catch(e){}};
+const bp=f=>{if(!snd)return;try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.15)}catch(e){}};
+function tsnd(){snd=!snd;$('#snd').textContent='🔊 Sound: '+(snd?'ON':'OFF')}
+function go(id){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==id))}
+
+/* ===== DATA (từ "1. Đề 1.pdf"; các câu thiếu đoạn văn/hình đã được loại) ===== */
+const W=[["pen","bút","🖊️"],["book","quyển sách","📖"],["scissors","cái kéo","✂️"],["school bag","cặp sách","🎒"],["bird","con chim","🐦"],["tree","cái cây","🌳"],["flower","bông hoa","🌸"],["bicycle","xe đạp","🚲"],["car","ô tô","🚗"],["airplane","máy bay","✈️"],["doctor","bác sĩ","🧑‍⚕️"],["astronaut","phi hành gia","🧑‍🚀"],["dress","cái váy","👗"],["jeans","quần jeans","👖"],["rabbit","con thỏ","🐰"],
+["eraser","cục tẩy","⭐"],["chalk","viên phấn","⭐"],["teacher","giáo viên","🧑‍🏫"],["pilot","phi công","👨‍✈️"],["umbrella","cái ô","☂️"],["ocean","đại dương","🌊"],["headache","đau đầu","🤕"],["stomachache","đau bụng","⭐"],["lavender","hoa oải hương","⭐"],["solar energy","năng lượng mặt trời","☀️"],["milk","sữa","🥛"],["Saturday","thứ Bảy","⭐"],["December","tháng Mười Hai","⭐"],["football","bóng đá","⚽"],["dog","con chó","🐶"],["cat","con mèo","🐱"],["student","học sinh","⭐"],["swim","bơi","🏊"],["fly","bay","⭐"],["blue","màu xanh dương","🔵"],["white","màu trắng","⚪"],["purple","màu tím","🟣"]];
+const MC=[
+["What is the past tense of 'work'?","worked",["work","working","works"],"Thêm -ed: work → worked."],
+["What is the past tense of 'take'?","took",["taket","taked","takeed"],"Động từ bất quy tắc: take → took."],
+["What is the past tense of 'go'?","went",["god","got","goed"],"Động từ bất quy tắc: go → went."],
+["What is the past tense of 'stop'?","stopped",["stops","stoping","stop"],"Stop gấp đôi p rồi thêm -ed: stopped."],
+["What is the past tense of 'come'?","came",["comeed","comet","comed"],"Come → came."],
+["What is the past tense of 'dance'?","danced",["dance","danceing","dances"],"Dance đã có e nên chỉ thêm -d: danced."],
+["What is the comparative form of 'small'?","smaller",["more small","slow","most small"],"Tính từ ngắn thêm -er: smaller."],
+["What is the superlative of 'heavy'?","the heaviest",["heavyer","more heavy","most heavy"],"Heavy → the heaviest."],
+["___ is your teacher?","Who",["Where","What","When"],"Who nghĩa là 'ai'."],
+["___ do you live?","Where",["Who","What","When"],"Where hỏi về nơi chốn."],
+["___ flowers over there are beautiful.","Those",["These","This","That"],"Those: những cái kia (nhiều, ở xa)."],
+["___ they play football?","Do",["Does","Are","Is"],"Với 'they' dùng Do."],
+["You ___ at school yesterday.","were",["is","was","are"],"Yesterday là quá khứ; you → were."],
+["She ___ football every day.","plays",["play","playing","played"],"She + động từ thêm s: plays."],
+["What number does the word 'twenty' represent?","20",["19","7","2"],"Twenty = 20."],
+["What is the ordinal of 8?","eighth",["seventh","fifth","sixth"],"Số thứ tự của 8 là eighth."],
+["What is the sixth day of the week?","Saturday",["Wednesday","Monday","Thursday"],"Tính từ thứ Hai, ngày thứ sáu là Saturday (thứ Bảy)."],
+["Which month comes after November?","December",["February","June","July"],"Sau November là December."],
+["This transport has two wheels and pedals.","bicycle",["submarine","boat","car"],"Bicycle là xe đạp."],
+["Pain in your stomach is called a ___.","stomachache",["rest","diet","checkup"],"Stomachache là đau bụng."],
+["Pain in your head is called a ___.","headache",["medicine","rest","diet"],"Headache là đau đầu."],
+["What color is an ocean?","blue",["gray","brown","black"],"Đại dương có màu xanh dương (blue)."],
+["What color is chalk?","white",["silver","green","gray"],"Phấn thường màu trắng (white)."],
+["What color is lavender?","purple",["gray","pink","black"],"Hoa oải hương màu tím (purple)."],
+["Energy from the sun is called ___.","solar energy",["ecosystem","deforestation","overfishing"],"Solar energy là năng lượng mặt trời."]];
+const FILL=[["He ___ a student.","is","He → is."],["You ___ at home now.","are","You → are."],["They ___ a cat.","have","They → have."],["We ___ two dogs.","have","We → have."],["I ___ a cat.","have","I → have."],["___ owl (a / an)","an","Owl bắt đầu bằng nguyên âm nên dùng an."],["A bird ___ fly. (can / can't)","can","Chim biết bay: can."],["Tom is ___ than Jerry. (old)","older","old → older."],["Tom is ___ than Jerry. (short)","shorter","short → shorter."],["I ___ swim very well. (can / can't)","can","Bơi rất giỏi: I can swim."],["They ___ students.","are","They → are."],["The past tense of 'help' is ___.","helped","help → helped."],["The past tense of 'clean' is ___.","cleaned","clean → cleaned."],["The past tense of 'close' is ___.","closed","close → closed."],["The past tense of 'win' is ___.","won","win → won."]];
+const MAT=[["Nối động từ với quá khứ",[["work","worked"],["take","took"],["go","went"],["come","came"]]],
+["Nối động từ với quá khứ",[["stop","stopped"],["help","helped"],["clean","cleaned"],["close","closed"]]],
+["Nối chữ với số",[["twenty","20"],["ten","10"],["seven","7"],["two","2"]]],
+["Nối số với số thứ tự",[["8","eighth"],["6","sixth"],["7","seventh"],["5","fifth"]]],
+["Nối từ với nghĩa",[["scissors","cái kéo"],["eraser","cục tẩy"],["chalk","viên phấn"],["school bag","cặp sách"]]],
+["Nối nghề nghiệp với nghĩa",[["doctor","bác sĩ"],["pilot","phi công"],["astronaut","phi hành gia"],["teacher","giáo viên"]]],
+["Nối màu với nghĩa",[["blue","xanh dương"],["white","trắng"],["purple","tím"],["green","xanh lá"]]],
+["Nối từ với nghĩa",[["headache","đau đầu"],["stomachache","đau bụng"],["medicine","thuốc"],["rest","nghỉ ngơi"]]],
+["Nối từ hỏi với nghĩa",[["Who","ai"],["Where","ở đâu"],["What","cái gì"],["When","khi nào"]]],
+["Nối từ với nghĩa",[["dress","cái váy"],["jeans","quần jeans"],["umbrella","cái ô"],["bicycle","xe đạp"]]]];
+const TF=[["The past tense of 'go' is 'went'.",1,"Go → went."],["The past tense of 'take' is 'taked'.",0,"Đúng phải là took."],["A bicycle has two wheels and pedals.",1,"Xe đạp có hai bánh và bàn đạp."],["Saturday is the sixth day of the week.",1,"Saturday là ngày thứ sáu (tính từ thứ Hai)."],["Chalk is black.",0,"Phấn thường màu trắng."],["The month after November is June.",0,"Sau November là December."],["A pilot is an occupation.",1,"Pilot (phi công) là một nghề."],["'Flower' is countable.",1,"One flower, two flowers: đếm được."],["'Milk' is countable.",0,"Milk là danh từ không đếm được."],["'Luggage' is uncountable.",1,"Luggage là danh từ không đếm được."]];
+const SCR=[["scissors","cái kéo"],["eraser","cục tẩy"],["bicycle","xe đạp"],["airplane","máy bay"],["doctor","bác sĩ"],["astronaut","phi hành gia"],["umbrella","cái ô"],["headache","đau đầu"],["December","tháng Mười Hai"],["Saturday","thứ Bảy"]];
+const RD=[["Tom is older than Jerry.","Who is older?","Tom",["Tom","Jerry","Both","Neither"]],["She plays football every day.","What does she play every day?","football",["football","piano","chess","tennis"]],["We have two dogs.","How many dogs do we have?","two",["one","two","three","four"]],["A bird can fly.","What can a bird do?","fly",["fly","drive","read","cook"]],["They have a cat.","What do they have?","a cat",["a cat","a dog","a rabbit","a bird"]]];
+const SB=[["He is a student.","Anh ấy là học sinh."],["You are at home now.","Bây giờ bạn đang ở nhà."],["They have a cat.","Họ có một con mèo."],["We have two dogs.","Chúng tôi có hai con chó."],["A bird can fly.","Chim biết bay."],["I can swim very well.","Tôi bơi rất giỏi."],["Tom is older than Jerry.","Tom lớn tuổi hơn Jerry."],["She plays football every day.","Cô ấy chơi bóng đá mỗi ngày."],["Where do you live?","Bạn sống ở đâu?"],["Who is your teacher?","Giáo viên của bạn là ai?"]];
+
+function build(){Q=[];let n=0;const A=o=>Q.push({id:++n,...o});const P=W.slice(0,15);
+MC.forEach(([q,a,w,e])=>A({t:'mc',q,a,o:sh([a,...w]),e}));
+P.forEach(([en,vi,em],k)=>A({t:'pic',em,q:'What is this?',a:en,o:sh([en,...sh(P.filter((_,j)=>j!=k)).slice(0,3).map(x=>x[0])]),e:en+' nghĩa là '+vi+'.'}));
+FILL.forEach(([q,a,e])=>A({t:'fill',q,a,e}));
+MAT.forEach(([q,p])=>A({t:'mat',q,p,a:p.map(x=>x.join(' = ')).join('; '),e:'Nối đúng cả 4 cặp mới được điểm.'}));
+TF.forEach(([q,a,e])=>A({t:'tf',q,a:a?'True':'False',o:['True','False'],e}));
+SCR.forEach(([w,vi])=>{let s;do s=sh(w.split('')).join('');while(s==w);A({t:'scr',q:'Sắp xếp chữ cái: '+s.toUpperCase().split('').join(' '),sub:'Gợi ý nghĩa: '+vi,a:w,e:w+' nghĩa là '+vi+'.'})});
+RD.forEach(([text,q,a,o])=>A({t:'rd',text,q,a,o:sh(o),e:'Câu đọc: '+text}));
+SB.forEach(([s,vi])=>A({t:'sb',q:'Xếp các từ thành câu đúng',sub:vi,a:s,w:sh(s.replace(/[.?]/g,'').split(' ')),e:'Câu đúng: '+s}));}
+
+/* ===== GAME ===== */
+function stop(){if(S&&S.tm)clearInterval(S.tm)}
+function start(){stop();build();S={i:0,score:0,ok:0,n:0,res:[],rem:1800,lock:false,back:'home'};go('quiz');render();
+S.tm=setInterval(()=>{S.rem--;ft();if(S.rem<=0)end()},1000);ft()}
+function ft(){const m=Math.max(S.rem,0);$('#tm').textContent=String(m/60|0).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+function render(){const q=Q[S.i];S.lock=false;S.mist=0;S.sl=null;S.done=0;S.line=[];S.w=q.w||[];
+$('#qn').textContent='Question '+(S.i+1)+'/100';$('#bar').style.width=(S.i)+'%';$('#sc').textContent=S.score;
+let h=(q.em?'<div class="big">'+q.em+'</div>':'')+(q.text?'<div class="txt">“'+q.text+'” <button class="sp" onclick="say(Q[S.i].text)">🔊</button></div>':'')+'<h2>'+q.q+'</h2>'+(q.sub?'<p class="mu">'+q.sub+'</p>':'');
+if(q.o)h+='<div class="ops">'+q.o.map((o,i)=>'<button class="op" data-i="'+i+'">'+o+'</button>').join('')+'</div>';
+if(q.t=='fill'||q.t=='scr')h+='<input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer…" onkeydown="if(event.key===\'Enter\')sub()">';
+if(q.t=='mat'){const R=sh(q.p.map((x,i)=>[x[1],i]));h+='<div class="mt"><div>'+q.p.map((x,i)=>'<button class="m l" data-k="'+i+'">'+x[0]+'</button>').join('')+'</div><div>'+R.map(([t,i])=>'<button class="m r" data-k="'+i+'">'+t+'</button>').join('')+'</div></div>'}
+if(q.t=='sb')h+='<div id="line" class="line"></div><div id="pool" class="pool"></div><button onclick="S.line=[];draw()">↺ Reset</button>';
+$('#main').innerHTML=h;$('#fb').innerHTML='';$('#fb').className='fb';
+$('#nx').hidden=true;$('#hint').disabled=q.t=='mat';$('#sub').hidden=!['fill','scr','sb'].includes(q.t);$('#sub').disabled=false;
+if(q.t=='sb')draw();if($('#in'))$('#in').focus({preventScroll:true})}
+function draw(){const q=Q[S.i];if(S.lock)return;
+$('#line').innerHTML=S.line.map(k=>'<button class="c" data-u="'+k+'">'+S.w[k]+'</button>').join('');
+$('#pool').innerHTML=S.w.map((w,k)=>S.line.includes(k)?'':'<button class="c" data-p="'+k+'">'+w+'</button>').join('')}
+$('#main').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!S||S.lock)return;const q=Q[S.i];
+if(b.classList.contains('op')){const v=q.o[b.dataset.i];document.querySelectorAll('.op').forEach(x=>{x.disabled=true;if(q.o[x.dataset.i]==q.a)x.classList.add('ok')});if(v!=q.a)b.classList.add('no');fin(v==q.a,v);return}
+if(b.dataset.p!==undefined){S.line.push(+b.dataset.p);draw()}
+else if(b.dataset.u!==undefined){S.line=S.line.filter(k=>k!=b.dataset.u);draw()}
+else if(b.classList.contains('m')&&!b.classList.contains('matched')){
+if(b.classList.contains('l')){document.querySelectorAll('.m.l').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');S.sl=b;return}
+if(!S.sl)return;
+if(S.sl.dataset.k===b.dataset.k){[S.sl,b].forEach(x=>{x.classList.remove('sel');x.classList.add('matched');x.disabled=true});S.sl=null;if(++S.done==q.p.length)fin(S.mist==0,S.mist==0?'nối đúng hết':S.mist+' lần nối sai')}
+else{S.mist++;b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400);S.sl.classList.remove('sel');S.sl=null}}});
+function sub(){if(S.lock)return;const q=Q[S.i];
+if(q.t=='sb'){if(!S.line.length)return;const u=S.line.map(k=>S.w[k]).join(' ');fin(u.toLowerCase()==q.a.replace(/[.?]/g,'').toLowerCase(),u);return}
+const v=$('#in').value.trim();if(!v){$('#in').focus();return}fin(v.toLowerCase()==q.a.toLowerCase(),v)}
+function hint(){if(S.lock)return;const q=Q[S.i];
+if(q.o){const b=[...document.querySelectorAll('.op:not([disabled])')].filter(x=>q.o[x.dataset.i]!=q.a);if(b.length>1){b[0].classList.add('gone');b[0].disabled=true}}
+else if(q.t=='fill'||q.t=='scr')$('#in').placeholder='Bắt đầu bằng chữ: '+q.a[0].toUpperCase()+'…';
+else if(q.t=='sb')$('#fb').textContent='Gợi ý: từ đầu tiên là "'+q.a.split(' ')[0]+'"'}
+function fin(ok,user){if(S.lock)return;S.lock=true;const q=Q[S.i];
+if(ok){S.score+=10;S.ok++;bp(880)}else bp(220);
+S.n++;S.res.push({q,user,ok});$('#sc').textContent=S.score;
+const f=$('#fb');f.className='fb '+(ok?'good':'bad');
+f.innerHTML=(ok?'✅ Correct! Great job! ⭐<br>':'❌ Try again next time!<br>Đáp án đúng: <b>'+q.a+'</b><br>')+q.e+(['mc','pic','fill','scr'].includes(q.t)?' <button class="sp" onclick="say(Q[S.i].a)">🔊</button>':'');
+$('#nx').hidden=false;$('#hint').disabled=true;$('#sub').disabled=true;if($('#in'))$('#in').disabled=true;
+document.querySelectorAll('.c').forEach(x=>x.disabled=true)}
+function nxt(){if(S.i>=99){end();return}S.i++;render();window.scrollTo(0,0)}
+function end(){stop();const used=1800-Math.max(S.rem,0),acc=S.n?Math.round(S.ok/S.n*100):0,s=S.score;
+$('#rs').textContent=s+'/1000';$('#ra').textContent=acc+'%';$('#ro').textContent=S.ok;$('#rw').textContent=S.n-S.ok;
+$('#rt').textContent='Thời gian: '+(used/60|0)+' phút '+used%60+' giây • Đã làm '+S.n+'/100 câu';$('#rb').style.width=(s/10)+'%';
+$('#rm').textContent=s>=900?'Amazing! You are an English Star! 🌟':s>=750?'Great Job! Keep going! 👏':s>=500?"Good effort! Let's practise more! 💪":'Keep learning! You can improve! 🌱';
+go('result')}
+function wrong(){const w=S.res.filter(r=>!r.ok);$('#wr').innerHTML=w.length?w.map(r=>'<div class="card"><b>Câu '+r.q.id+':</b> '+(r.q.text?'“'+r.q.text+'” ':'')+r.q.q+(r.q.em?' '+r.q.em:'')+'<br>Bạn trả lời: <b style="color:var(--no)">'+r.user+'</b><br>Đáp án: <b style="color:var(--ok)">'+r.q.a+'</b><br><span class="mu">'+r.q.e+'</span></div>').join(''):'<p>Không có câu sai. Tuyệt vời! 🎉</p>';go('wrong')}
+function words(b){if(S)S.back=b||'home';else S={back:'home'};if(b!='result')S.back='home';$('#srch').value='';drawW();go('words')}
+function drawW(){const k=$('#srch').value.toLowerCase().trim();
+$('#wl').innerHTML=W.filter(w=>!k||w[0].toLowerCase().includes(k)||w[1].toLowerCase().includes(k)).map(w=>'<div class="row"><span class="e">'+w[2]+'</span><span class="w"><b>'+w[0]+'</b><br><span class="mu">'+w[1]+'</span></span><button class="sp" onclick="say(\''+w[0].replace(/'/g,'')+'\')">🔊</button></div>').join('')||'<p class="mu">Không tìm thấy.</p>'}
+</script></body></html>
